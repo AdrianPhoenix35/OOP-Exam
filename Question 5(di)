@@ -1,0 +1,12 @@
+package adrian.main1;
+
+/**
+ *
+ * @author ADRIAN M
+ */
+public  abstract class TaxCategory {
+
+    public double calculateVAT(double amount) {
+        return 0.0; // Base class returns 0 VAT by default
+    }
+}
