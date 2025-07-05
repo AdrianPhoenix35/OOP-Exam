@@ -1,0 +1,71 @@
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * JUnit test class for the BALEXTRANIT transport system.
+ * This tests the company's ability to schedule passenger pickups.
+ * 
+ * @author ADRIAN M
+ */
+public class BALEXTRANITTest {
+    
+    public BALEXTRANIT balextranit;
+
+    public BALEXTRANITTest() {
+    }
+
+    @BeforeAll
+    public static void setUpClass() {
+        System.out.println("Starting all BALEXTRANIT tests...");
+    }
+
+    @AfterAll
+    public static void tearDownClass() {
+        System.out.println("Finished all BALEXTRANIT tests.");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        // Initialize the company and add a vehicle before each test
+        balextranit = new BALEXTRANIT();
+        balextranit.addVehicle(new Vehicle("Taxi", null, null));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // Clean up company fleet after each test
+        balextranit.clearVehicles();
+    }
+
+    /**
+     * Test that a pickup is successful when a vehicle is available.
+     */
+    @Test
+    public void testSchedulePickup_Success() {
+        Passenger passenger = new Passenger(
+                new Location(10, 20),
+                new Location(30, 40)
+        );
+        
+        boolean result = balextranit.schedulePickup(passenger);
+        
+        assertTrue(result, "Pickup should succeed when a vehicle is available");
+    }
+
+    /**
+     * Test that a pickup fails when no vehicles are available.
+     */
+    @Test
+    public void testSchedulePickup_FailureWhenNoVehicles() {
+        // Remove the only vehicle to simulate no availability
+        balextranit.clearVehicles();
+
+        Passenger passenger = new Passenger(
+                new Location(50, 60),
+                new Location(70, 80)
+        );
+        
