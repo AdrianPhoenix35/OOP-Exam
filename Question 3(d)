@@ -1,0 +1,27 @@
+import java.util.Arrays;  
+
+public class AirQualityMonitor {  
+    public static void main(String[] args) {  
+        int[] aqiReadings = new int[30];  
+        int hazardousDays = 0;  
+
+        // 1. Generate random AQI values  
+        for (int i = 0; i < 30; i++) {  
+            aqiReadings[i] = (int) (Math.random() * 300) + 1;  
+        }  
+
+        // 2. Sort and find median  
+        Arrays.sort(aqiReadings);  
+        double median = (aqiReadings[14] + aqiReadings[15]) / 2.0;  
+
+        // 3. Count hazardous days  
+        for (int aqi : aqiReadings) {  
+            if (aqi > 200) hazardousDays++;  
+        }  
+
+        // Display results  
+        System.out.println("30-Day AQI Report:");  
+        System.out.println("Median AQI: " + median);  
+        System.out.println("Hazardous Days: " + hazardousDays);  
+    }  
+}
