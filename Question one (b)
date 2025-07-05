@@ -1,0 +1,42 @@
+import java.util.Random;
+ //Represents a source of passengers requesting pickups from BALEXTRANIT.
+ 
+ public class PassengerSource {
+    // Reference to the BALEXTRANIT company
+    private final BALEXTRANIT balextranit; 
+    // Random number generator for location coordinates
+    private final Random random; 
+
+
+    public PassengerSource(BALEXTRANIT balextranit) {
+        this.balextranit = balextranit;
+        this.random = new Random();
+    }
+
+    /**
+     * Requests a pickup for a passenger with random pickup and destination locations.
+     * 
+     * @return True if the pickup request is successfully scheduled, false otherwise.
+     */
+    public boolean requestPickup() {
+        // Create a new passenger object
+        Passenger passenger = new Passenger();
+        
+        // Generate random x and y coordinates for pickup location
+        int pickupX = random.nextInt(101);
+        int pickupY = random.nextInt(101);
+        Location pickupLocation = new Location(pickupX, pickupY);
+        
+        // Generate random x and y coordinates for destination location
+        int destinationX = random.nextInt(101);
+        int destinationY = random.nextInt(101);
+        Location destinationLocation = new Location(destinationX, destinationY);
+        
+        // Set the passenger's pickup and destination locations
+        passenger.setPickupLocation(pickupLocation);
+        passenger.setDestinationLocation(destinationLocation);
+        
+        // Request a vehicle from BALEXTRANIT for the passenger
+        return balextranit.scheduleVehicle(passenger);
+    }
+}
